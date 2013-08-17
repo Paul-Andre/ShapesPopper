@@ -1,0 +1,8 @@
+{ "dependencies" :
+  { "ncp" : ">=0.4.2"
+  , "uglify-js" : ">=2.3.6"
+  , "clean-css" : ">=1.0.12"
+  , "easy-zip" : "0.0.4"
+  , "colors" : ">=0.6.1"
+}
+}
