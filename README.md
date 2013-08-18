@@ -7,8 +7,8 @@ How to use:
 Assuming you have node.js and npm fully functional, install the dependencies:
        $ npm install
 
-Next, create a "public" folder, and put all your project files in it.
-
+Next, replace the contents of "public" by your own files.
+ 
 Finally execute the compress.js script.
        $ nodejs compress.js
 
