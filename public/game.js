@@ -13,15 +13,19 @@ console.log(grid);
 	var chains=[];
 	var usedChains=[];
 	game.chains=chains;
+	var reuseGrid=new binaryData.Grid(w,h,8,false);
+	var modifiedColumns=new binaryData.Array(w,16,false);
 	
-	
-	function makeNewChain(){
+	function makeNewChain(x,y,h){
 		var chain;
 		if (usedChains.length>0){
 			chain=usedChains.pop();
 			chain.t.forEachSet(function(){return 0});
+			chain.x=x;
+			chain.y=y;
+			chain.h=h;
 		}else{
-			chain={x:0,y:0,t:new binaryData.Array(height,8,false),h:0,v:0}
+			chain={x:x,y:y,t:new binaryData.Array(height,8,false),h:h,v:0}
 		}
 		chains.push(chain);
 		return chain;
@@ -30,18 +34,53 @@ console.log(grid);
 	function recycleChain(chain){
 		usedChains.push(chain);	
 	}
+	
+	
+	function chainify(){
+	
+		modifiedColumns.forEach(function(v,i,a){
+		
+		
+			if(v){
+			
+				var chainLength=0;
+				
+				for(var j=0;j<height;j++){
+					
+					
+					if(grid.get(i,j)){
+						
+						chainLength++;
+					
+					}else if(chainLength){
+						var chain=makeNewChain(i,(j-chainLength)*size,chainLength);
+						for(var k=0;k<chainLength;k++){
+							chain.t.set(k,grid.get(i,j-chainLength+k));
+							grid.set(i,j-chainLength+k,0)
+						}
+					}
+				
+				}
+			
+			}
+		
+		});
+	
+	}
+	
+	
 	//var
 	
 	
 	game.grid.forEachSet(function(){
 		return Math.floor(Math.random()*4+2)
-	},0,height-5,width)
+	})
 
 
 
 	
 	
-	function makeRandomChain(){
+	/*function makeRandomChain(){
 	
 		var chain=makeNewChain();
 		chain.x=Math.floor(Math.random()*width);
@@ -55,9 +94,9 @@ console.log(grid);
 		},0,chain.h)
 		
 	
-	}
+	}*/
 	
-	setInterval(makeRandomChain,10);
+	//setInterval(makeRandomChain,10);
 
 	game.draw=function gameDraw(){
 		var size=this.size;
@@ -92,10 +131,10 @@ console.log(grid);
 		{
 		var v=chains[i];
 		
-			v.v=Math.min(size*0.5,v.v+size*0.0625*delta);
-			v.y+=v.v*delta*0.125;
+			v.v=Math.min(size*0.5,v.v+size*0.03125*delta);
+			v.y+=v.v*delta*0.03125;
 			
-			if (grid.get(v.x,Math.floor((v.y+v.h*size)/size ) )){
+			if (grid.get(v.x,Math.floor((v.y+v.h*size)/size ) )||v.y+v.h*size>=height*size){
 			
 				v.t.forEach(function(t,i,a){
 				
@@ -114,6 +153,33 @@ console.log(grid);
 		
 		}
 	
+	}
+	
+	game.click=function(x,y){
+		
+		x=Math.floor(x/size);
+		y=Math.floor(y/size);
+		modifiedColumns.setAll(0);
+		var color=grid.get(x,y);
+		var number=0;
+		
+		propagate(grid,x,y,function check(v){
+			return v==color;
+		},
+		function callback(x2,y2){
+			number++;
+			if(number==2){
+				grid.set(x,y,0);
+				modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
+			}
+			if (number>=2){
+				grid.set(x2,y2,0);
+				modifiedColumns.set(x2,modifiedColumns.get(x2)+1);							
+			}
+		})
+		
+		chainify();
+		
 	}
 	game.usedChains=usedChains;
 	game.chains=chains;

@@ -34,13 +34,7 @@ function createTiles(size){
 		ctx.fill();
 		break;
 		case(3):
-ctx.beginPath();
-ctx.moveTo(0,0);
-ctx.lineTo(100,0);
-ctx.lineTo(100,100);
-ctx.lineTo(0,100);
-ctx.closePath();
-ctx.clip();
+
 ctx.strokeStyle = 'rgba(0,0,0,0)';
 ctx.lineCap = 'butt';
 ctx.lineJoin = 'miter';
@@ -51,8 +45,8 @@ ctx.save();
 ctx.translate(0,-952.36218);
 ctx.save();
 //ctx.fillStyle = "#00ff00";
-ctx.strokeStyle = "#55FF55";
-ctx.lineWidth = 12;
+ctx.strokeStyle = "#88FF88";
+ctx.lineWidth = 8;
 ctx.lineCap = "round";
 ctx.lineJoin = "miter";
 ctx.miterLimit = 4;

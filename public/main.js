@@ -2,7 +2,7 @@ var canvas=document.getElementById("gameCanvas");
 var ctx=canvas.getContext("2d");
 var ratio=1;
 var tiles;
-var size=20;
+var size=32;
 var alignImage=false;
 
 
@@ -34,18 +34,19 @@ resizeCanvas();
 tiles=createTiles(size*ratio);
 }
 
+/*
 function goFullScreen(){
 canvas.webkitRequestFullScreen&&canvas.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
 canvas.webkitRequestFullscreen&&canvas.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
 canvas.mozRequestFullScreen&&canvas.mozRequestFullScreen();
 canvas.requestFullscreen&&canvas.requestFullscreen(); // Opera
-setRatio(0.5);
+setRatio(1);
 
 
 }
+*/
 
-
-setRatio(0.5);
+setRatio(1);
 game=makeNewPopperGame(Math.floor(window.innerWidth/size),Math.floor(window.innerHeight/size),size);
 pastTime=Date.now();
 draw();
@@ -60,6 +61,10 @@ function draw(){
 
 
 
+canvas.onmousedown=function(evt){
+	console.log(evt);
+	game.click(evt.x,evt.y);
 
+}
 
 
