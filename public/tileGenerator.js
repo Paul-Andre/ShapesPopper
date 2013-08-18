@@ -70,7 +70,26 @@ ctx.bezierCurveTo(59.295679,1003.4055,72.986276,1005.4634,78.576639,1016.3514);
 ctx.stroke();
 ctx.restore();
 ctx.restore();
+break;
+		case(5):
+		
 
+
+ctx.strokeStyle = 'rgba(0,0,0,0)';
+ctx.lineCap = 'butt';
+ctx.lineJoin = 'miter';
+ctx.miterLimit = 4;
+ctx.translate(0,-952.36218);
+ctx.fillStyle = "#fbee25";
+ctx.translate(0,952.36218);
+ctx.beginPath();
+ctx.moveTo(50,25);
+ctx.lineTo(85,75);
+ctx.lineTo(15,75);
+ctx.closePath();
+ctx.fill();
+
+		break;
 		default:
 		break;
 		}
