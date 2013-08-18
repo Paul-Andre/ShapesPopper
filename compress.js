@@ -70,6 +70,7 @@ function copyPublicDir(callback){
 
 
 // this object contains the functions that will be executed if a file has a certain extension
+// Please make sure that these function are synchronous, otherwise bad things may happen!
 var minifyFunctions={
 
 	".js":function(path){
