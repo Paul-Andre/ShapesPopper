@@ -111,7 +111,7 @@ var binaryData=function(){
 		this.forEach=function(func,x,r){  // func : function to perform on each cell, x : cell on wich to start (optional), r : how many cells to perform the operation on (optional) 
 				x=(typeof x=="number")?Math.max(Math.floor(x),0):0;
 				for(var end = (typeof r!="number")?this.length:Math.min(Math.ceil(x+r),this.length);x<end;x++){
-					func.call(this,view[x],x);
+					func(view[x],x,this);
 				}
 			
 		}

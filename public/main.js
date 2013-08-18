@@ -2,6 +2,12 @@ var canvas=document.getElementById("gameCanvas");
 var ctx=canvas.getContext("2d");
 var ratio=1;
 var tiles;
+var size=20;
+var alignImage=false;
+
+
+var pastTime=0;
+var game;
 
 function resizeCanvas(){
 	//canvas.style.width=0;
@@ -25,95 +31,35 @@ function resizeCanvas(){
 function setRatio(r){
 ratio=r;
 resizeCanvas();
-tiles=createTiles(64*ratio);
+tiles=createTiles(size*ratio);
+}
+
+function goFullScreen(){
+canvas.webkitRequestFullScreen&&canvas.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+canvas.webkitRequestFullscreen&&canvas.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+canvas.mozRequestFullScreen&&canvas.mozRequestFullScreen();
+canvas.requestFullscreen&&canvas.requestFullscreen(); // Opera
+setRatio(0.5);
+
+
 }
 
 
-
-
-
-
-
-setRatio(1);
-var game=makeNewPopperGame(Math.round(window.innerWidth/64),Math.round(window.innerHeight/64),64);
+setRatio(0.5);
+game=makeNewPopperGame(Math.floor(window.innerWidth/size),Math.floor(window.innerHeight/size),size);
+pastTime=Date.now();
+draw();
 
 function draw(){
-
-	game.draw();
+	ctx.clearRect(0,0,canvas.width,canvas.height);
+	game.update(Date.now()-pastTime);
+	pastTime=Date.now();
+	game.draw();	
 	requestAnimationFrame(draw);
 }
 
-draw();
 
 
-function makeNewPopperGame(w,h,size){
-
-	var game={
-		grid:new binaryData.Grid(w,h,8,false),
-		size:size
-
-	};
-	
-	var width=w;
-	var height=h;
-
-	var chains=[];
-	var usedChains=[];
-	game.chains=chains;
-	
-	
-	function makeNewChain(){
-		var chain;
-		if (usedChains.length>0){
-			chain=usedChains.pop();
-		}else{
-			chain={x:0,y:0,t:new binaryData.Array(height,8,false),h:0}
-		}
-		chains.push(chain);
-		return chain;
-	}
-	
-	//var
-	
-	
-	game.grid.forEachSet(function(){
-		return Math.floor(Math.random()*4+1)
-	},0,height-5,width)
 
 
-	var chain=makeNewChain();
-	chain.t.forEachSet(function(){
-		return Math.floor(Math.random()*4+1)
-	
 
-	},0,7)
-
-	game.draw=function gameDraw(){
-		var size=this.size;
-		
-		
-		
-		this.grid.forEach(function(v,x,y){
-		
-			ctx.drawImage(tiles[v],x*size*ratio,y*size*ratio,size*ratio,size*ratio)
-	
-		})
-		
-		
-		chains.forEach(function(c){
-		
-			c.t.forEach(function(v,i){
-			
-				ctx.drawImage(tiles[v],c.x*size*ratio,(i*size+c.y)*ratio);
-			
-			})
-		
-		});
-		
-
-	}
-
-	return game;
-
-
-}
