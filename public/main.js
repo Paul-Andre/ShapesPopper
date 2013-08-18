@@ -67,14 +67,14 @@ canvas.onmousedown=function(evt){
 
 }
 
-canvas.ontouchstart=function(evt){
+canvas.addEventListener("touchstart",function(evt){
 
-  if (evt.targetTouches.length == 1) {
+ 
     var touch = event.targetTouches[0];
-    // Place element where the finger is
     game.click(touch.pageX,touch.pageY);
-  }
-	evt.preventDefault()
+    //alert("touchy!");
+	return cancelEvent(evt);
+	
 
-}
+},false);
 
