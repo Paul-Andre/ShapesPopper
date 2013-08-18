@@ -29,34 +29,12 @@ tiles=createTiles(64*ratio);
 }
 
 
-var tileColors=["red","green","blue","orange"];
-
-
-function createTiles(size){
-
-	var tiles=[];
-	
-	
-	for(var i=0;i<tileColors.length;i++){
-		
-		var tile=document.createElement("canvas");
-		var ctx=tile.getContext("2d");
-		tile.width=size;
-		tile.height=size;
-		
-		ctx.fillStyle=tileColors[i];
-		ctx.fillRect(0,0,size,size);
-	
-		tiles.push(tile);
-	}
-	
-	return tiles;
-}
 
 
 
 
-setRatio(0.125/2);
+
+setRatio(1);
 var game=makeNewPopperGame(Math.round(window.innerWidth/64),Math.round(window.innerHeight/64),64);
 
 function draw(){
@@ -75,24 +53,63 @@ function makeNewPopperGame(w,h,size){
 		size:size
 
 	};
+	
+	var width=w;
+	var height=h;
 
 	var chains=[];
 	var usedChains=[];
+	game.chains=chains;
 	
-	var
+	
+	function makeNewChain(){
+		var chain;
+		if (usedChains.length>0){
+			chain=usedChains.pop();
+		}else{
+			chain={x:0,y:0,t:new binaryData.Array(height,8,false),h:0}
+		}
+		chains.push(chain);
+		return chain;
+	}
+	
+	//var
 	
 	
 	game.grid.forEachSet(function(){
-		return Math.floor(Math.random()*4)
-	})
+		return Math.floor(Math.random()*4+1)
+	},0,height-5,width)
+
+
+	var chain=makeNewChain();
+	chain.t.forEachSet(function(){
+		return Math.floor(Math.random()*4+1)
+	
+
+	},0,7)
 
 	game.draw=function gameDraw(){
 		var size=this.size;
+		
+		
+		
 		this.grid.forEach(function(v,x,y){
 		
-			ctx.drawImage(tiles[v],x*size*ratio,y*size*ratio)
+			ctx.drawImage(tiles[v],x*size*ratio,y*size*ratio,size*ratio,size*ratio)
 	
 		})
+		
+		
+		chains.forEach(function(c){
+		
+			c.t.forEach(function(v,i){
+			
+				ctx.drawImage(tiles[v],c.x*size*ratio,(i*size+c.y)*ratio);
+			
+			})
+		
+		});
+		
 
 	}
 
