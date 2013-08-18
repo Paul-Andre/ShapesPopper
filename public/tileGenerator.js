@@ -1,7 +1,7 @@
 function createTiles(size){
 
 
-	var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","blue","orange"];
+	var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","#3f5eb5","orange"];
 	
 	var tiles=[];
 	
@@ -71,11 +71,47 @@ ctx.stroke();
 ctx.restore();
 ctx.restore();
 break;
+case(4):
+
+ctx.lineCap = 'butt';
+ctx.lineJoin = 'miter';
+ctx.miterLimit = 4;
+ctx.save();
+ctx.restore();
+ctx.save();
+ctx.translate(0,-952.36218);
+ctx.save();
+ctx.fillStyle = "#7ed3ff";
+ctx.translate(0,952.36218);
+ctx.beginPath();
+ctx.moveTo(33,22.875);
+ctx.bezierCurveTo(25.175642,22.875,18.84375,29.238142,18.84375,37.0625);
+ctx.bezierCurveTo(18.84375,44.886858000000004,25.175642,51.21875,33,51.21875);
+ctx.bezierCurveTo(40.824358000000004,51.21875,47.15625,44.886858000000004,47.15625,37.0625);
+ctx.bezierCurveTo(47.15625,29.238142,40.824358,22.875,33,22.875);
+ctx.closePath();
+ctx.moveTo(67,23.09375);
+ctx.bezierCurveTo(59.175641999999996,23.09375,52.84375,29.425642,52.84375,37.25);
+ctx.bezierCurveTo(52.84375,45.074358000000004,59.175641999999996,51.4375,67,51.4375);
+ctx.bezierCurveTo(74.824358,51.4375,81.15625,45.074358000000004,81.15625,37.25);
+ctx.bezierCurveTo(81.15625,29.425642,74.824358,23.09375,67,23.09375);
+ctx.closePath();
+ctx.moveTo(50,52.53125);
+ctx.bezierCurveTo(42.175641999999996,52.53125,35.84375,58.863141999999996,35.84375,66.6875);
+ctx.bezierCurveTo(35.84375,74.511858,42.175641999999996,80.875,50,80.875);
+ctx.bezierCurveTo(57.824358000000004,80.875,64.15625,74.511858,64.15625,66.6875);
+ctx.bezierCurveTo(64.15625,58.863141999999996,57.824358000000004,52.53125,50,52.53125);
+ctx.closePath();
+ctx.fill();
+ctx.restore();
+ctx.restore();
+
+break;
 		case(5):
 		
 
 
-ctx.strokeStyle = 'rgba(0,0,0,0)';
+
 ctx.lineCap = 'butt';
 ctx.lineJoin = 'miter';
 ctx.miterLimit = 4;
