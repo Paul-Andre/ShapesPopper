@@ -14,8 +14,10 @@ console.log(grid);
 	var usedChains=[];
 	//var
 	
-	var pullNew=false;
+	var pullNew=true;;
 	
+	
+	var cellsBroken=0;
 	
 	game.chains=chains;
 	var reuseGrid=new binaryData.Grid(w,h,8,false);
@@ -147,8 +149,15 @@ console.log(grid);
 			})
 		
 		});
-		
-
+		ctx.save();
+		ctx.scale(ratio,ratio);
+		ctx.fillStyle="#FFFFFF";
+		ctx.strokeStyle="#223344";
+		ctx.font = "60pt Arial";
+		ctx.lineWidth=4;
+		ctx.strokeText(cellsBroken,20,80);
+		ctx.fillText(cellsBroken,20,80);
+		ctx.restore();
 	}
 	
 	game.update=function(delta){
@@ -201,17 +210,27 @@ console.log(grid);
 				if(number==2){
 					grid.set(x,y,0);
 					modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
+					cellsBroken++;
 				}
 				if (number>=2){
 					grid.set(x2,y2,0);
-					modifiedColumns.set(x2,modifiedColumns.get(x2)+1);							
+					modifiedColumns.set(x2,modifiedColumns.get(x2)+1);
+					cellsBroken++;		
 				}
 			},reuseGrid)
 		
 			chainify();
 			}
 		}
+		
+		if (cellsBroken>100){
+		
+			pullNew=false;
+		
+		}
 	}
+	
+	
 	game.usedChains=usedChains;
 	game.chains=chains;
 
