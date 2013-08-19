@@ -12,6 +12,11 @@ function makeNewPopperGame(w,h,size){
 console.log(grid);
 	var chains=[];
 	var usedChains=[];
+	//var
+	
+	var pullNew=true;
+	
+	
 	game.chains=chains;
 	var reuseGrid=new binaryData.Grid(w,h,8,false);
 	var modifiedColumns=new binaryData.Array(w,16,false);
@@ -35,6 +40,10 @@ console.log(grid);
 		usedChains.push(chain);	
 	}
 	
+	function randomTile(){
+	
+		return Math.floor(Math.random()*4+2);
+	}
 	
 	function chainify(){
 	
@@ -42,7 +51,7 @@ console.log(grid);
 		
 		
 			if(v){
-			
+				var chainNumber=0;
 				var chainLength=0;
 				
 				for(var j=0;j<height;j++){
@@ -52,12 +61,20 @@ console.log(grid);
 						
 						chainLength++;
 					
-					}else if(chainLength){
-						var chain=makeNewChain(i,(j-chainLength)*size,chainLength);
-						for(var k=0;k<chainLength;k++){
-							chain.t.set(k,grid.get(i,j-chainLength+k));
-							grid.set(i,j-chainLength+k,0)
-						}
+					}else if(chainLength||(!chainNumber&&pullNew)){
+							var pull=(!chainNumber&&pullNew)?v:0;
+					
+							var chain=makeNewChain(i,(j-chainLength-pull)*size,chainLength+pull);
+							
+							for(var k=0;k<pull;k++){
+								chain.t.set(k,randomTile());
+							}
+							for(var k=0;k<chainLength;k++){
+								chain.t.set(k+pull,grid.get(i,j-chainLength+k));
+								grid.set(i,j-chainLength+k,0)
+							}
+						
+						chainNumber++;
 					}
 				
 				}
@@ -140,7 +157,7 @@ console.log(grid);
 				
 					if(t){
 					grid.set(v.x,i+Math.floor((v.y)/size),t);
-					a.set(i,0);
+					//a.set(i,0);
 					};
 				})
 				
@@ -162,6 +179,7 @@ console.log(grid);
 		modifiedColumns.setAll(0);
 		var color=grid.get(x,y);
 		var number=0;
+		reuseGrid.setAll(0);
 		
 		propagate(grid,x,y,function check(v){
 			return v==color;
@@ -176,7 +194,7 @@ console.log(grid);
 				grid.set(x2,y2,0);
 				modifiedColumns.set(x2,modifiedColumns.get(x2)+1);							
 			}
-		})
+		},reuseGrid)
 		
 		chainify();
 		
