@@ -2,9 +2,15 @@ var canvas=document.getElementById("gameCanvas");
 var ctx=canvas.getContext("2d");
 var ratio=1;
 var tiles;
-var size=64;
+var size=32;
 var alignImage=false;
 
+
+if(Math.min(window.innerWidth,window.innerHeight)<32*16){
+var size=32;
+}else{
+var size=64;
+}
 
 var pastTime=0;
 var game;

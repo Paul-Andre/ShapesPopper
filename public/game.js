@@ -181,6 +181,7 @@ console.log(grid);
 		var number=0;
 		reuseGrid.setAll(0);
 		
+		if(color>1){
 		propagate(grid,x,y,function check(v){
 			return v==color;
 		},
@@ -197,6 +198,7 @@ console.log(grid);
 		},reuseGrid)
 		
 		chainify();
+		};
 		
 	}
 	game.usedChains=usedChains;
