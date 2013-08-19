@@ -14,7 +14,7 @@ console.log(grid);
 	var usedChains=[];
 	//var
 	
-	var pullNew=true;
+	var pullNew=false;
 	
 	
 	game.chains=chains;
@@ -88,6 +88,15 @@ console.log(grid);
 	
 	//var
 	
+	
+	
+	/*for(var i=0;i<width;i++){
+	
+		var chain = makeNewChain(i,(height)*-size+i*-size/8,height)
+		chain.t.forEachSet(randomTile);
+	
+	
+	}*/
 	
 	game.grid.forEachSet(function(){
 		return Math.floor(Math.random()*4+2)
@@ -176,30 +185,32 @@ console.log(grid);
 		
 		x=Math.floor(x/size);
 		y=Math.floor(y/size);
-		modifiedColumns.setAll(0);
-		var color=grid.get(x,y);
-		var number=0;
-		reuseGrid.setAll(0);
 		
-		if(color>1){
-		propagate(grid,x,y,function check(v){
-			return v==color;
-		},
-		function callback(x2,y2){
-			number++;
-			if(number==2){
-				grid.set(x,y,0);
-				modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
+		if(x<width&&y<height){
+			modifiedColumns.setAll(0);
+			var color=grid.get(x,y);
+			var number=0;
+			reuseGrid.setAll(0);
+		
+			if(color>1){
+			propagate(grid,x,y,function check(v){
+				return v==color;
+			},
+			function callback(x2,y2){
+				number++;
+				if(number==2){
+					grid.set(x,y,0);
+					modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
+				}
+				if (number>=2){
+					grid.set(x2,y2,0);
+					modifiedColumns.set(x2,modifiedColumns.get(x2)+1);							
+				}
+			},reuseGrid)
+		
+			chainify();
 			}
-			if (number>=2){
-				grid.set(x2,y2,0);
-				modifiedColumns.set(x2,modifiedColumns.get(x2)+1);							
-			}
-		},reuseGrid)
-		
-		chainify();
-		};
-		
+		}
 	}
 	game.usedChains=usedChains;
 	game.chains=chains;
