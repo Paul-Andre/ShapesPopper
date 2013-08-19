@@ -149,7 +149,7 @@ console.log(grid);
 		var v=chains[i];
 		
 			v.v=Math.min(size*0.5,v.v+size*0.03125*delta);
-			v.y+=v.v*delta*0.03125;
+			v.y+=Math.min(v.v*delta*0.03125,size*0.5);
 			
 			if (grid.get(v.x,Math.floor((v.y+v.h*size)/size ) )||v.y+v.h*size>=height*size){
 			
