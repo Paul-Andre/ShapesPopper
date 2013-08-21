@@ -290,7 +290,7 @@ console.log(grid);
 			});
 		
 		});
-		ctx.save();
+		/*ctx.save();
 		ctx.scale(ratio,ratio);
 		ctx.fillStyle="#FFFFFF";
 		ctx.strokeStyle="#223344";
@@ -298,7 +298,7 @@ console.log(grid);
 		ctx.lineWidth=4;
 		ctx.strokeText(cellsBroken,20,80);
 		ctx.fillText(cellsBroken,20,80);
-		ctx.restore();
+		ctx.restore();*/
 	}
 	
 	game.update=function(delta){
