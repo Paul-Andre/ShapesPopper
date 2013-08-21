@@ -116,7 +116,7 @@ console.log(grid);
 			case(10):
 				stage=1;
 				for(var i=0; i<width;i++){
-					var chain =makeNewChain(i,-size,1)
+					var chain =makeNewChain(i,-3*size,3)
 					for(var j=0; j<3; j++){
 					chain.t.set(j,randomTile());
 					//chain.t.set(1,6);
