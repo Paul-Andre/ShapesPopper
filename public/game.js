@@ -30,9 +30,9 @@ console.log(grid);
 	l[6]=l[5]+200
 	l[7]=l[6]+150
 	l[8]=l[7]+100
-	l[9]=l[8]+Math.floor(width*height*0.4);
-	l[10]=l[9]+Math.floor(width*height*0.4);
-	l[11]=l[10]+width*4;
+	l[9]=l[8]+Math.floor(width*height*0.3);
+	l[10]=l[9]+Math.floor(width*height*0.3);
+	l[11]=l[10]+width*3;
 	l[12]=l[11]+300;
 		
 	var pullNew=true;;
