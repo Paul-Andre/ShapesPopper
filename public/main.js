@@ -12,6 +12,11 @@ var size=32;
 var size=64;
 }
 
+
+//ctx.fillText("Loading...",50,50);
+
+
+
 var pastTime=0;
 var game;
 
@@ -178,7 +183,7 @@ function draw(){
 
 
 canvas.onmousedown=function(evt){
-	console.log(evt);
+//	console.log(evt);
 	if(gameOn)
 	game.click(evt.clientX,evt.clientY)
 	else{
@@ -188,7 +193,7 @@ canvas.onmousedown=function(evt){
 
 }
 
-canvas.onmousemove
+//canvas.onmousemove
 
 canvas.addEventListener("touchstart",function(evt){
 

@@ -11,9 +11,30 @@ function makeNewPopperGame(w,h,size){
 	var height=h;
 console.log(grid);
 	var chains=[];
-	var usedChains=[];
-	//var
+	for (var i=0;i<width;i++){
+		
+		chains.push([]);
 	
+	}
+	var usedChains=[];
+	var stage=1;
+	var level=0;
+	//var
+	var levels=[];
+	var l=levels;
+	l[1]=150;
+	l[2]=l[1]+Math.floor(width*height*0.4);
+	l[3]=l[2]+Math.floor(width*height*0.4)+width;
+	l[4]=l[3]+Math.floor(width*height*0.2);
+	l[5]=l[4]+Math.floor(width*height*2);
+	l[6]=l[5]+Math.floor(width*height*2);
+	l[7]=l[6]+Math.floor(width*height*2);
+	l[8]=l[7]+Math.floor(width*height*0.9);
+	l[9]=l[8]+Math.floor(width*height*0.5);
+	l[10]=l[9]+width;
+	l[11]=l[10]+width*4;
+	l[12]=l[11]+Math.floor(width*height*1);
+		
 	var pullNew=true;;
 	
 	
@@ -34,7 +55,7 @@ console.log(grid);
 		}else{
 			chain={x:x,y:y,t:new binaryData.Array(height,8,false),h:h,v:0}
 		}
-		chains.push(chain);
+		chains[x].push(chain);
 		return chain;
 	}
 	
@@ -42,9 +63,93 @@ console.log(grid);
 		usedChains.push(chain);	
 	}
 	
-	function randomTile(){
+	function onBurstedCells(){
 	
-		return Math.floor(Math.random()*4+2);
+		if((cellsBroken>l[level+1])&&level<l.length-1){
+			//alert(cellsBroken);
+		while(cellsBroken>l[level+1]&&level<l.length-1){level++};
+			//alert(level);
+			switch(level){
+			case(1):
+				pullNew=false;
+				//alert("hey");
+			break;
+			case(2):
+				for(var i=0; i<width;i++){
+			
+					var chain =makeNewChain(i,-size+1,1)
+					chain.t.set(0,6);
+					//chain.t.set(1,6);
+			
+				}
+			break;
+			case(3):
+				pullNew=true;
+				stage=2;
+				fill();		
+			break;
+			case(4):
+				stage=3;
+			break;
+			case(5):
+				stage=4;
+			break;
+			case(6):
+				stage=5;
+			break;
+			case(7):
+				stage=6;
+			break;
+			case(8):
+				pullNew=false;
+			break;
+			case(9):
+				for(var i=0; i<width;i++){
+			
+					var chain =makeNewChain(i,-size+1,1)
+					chain.t.set(0,randomTile);
+					//chain.t.set(1,6);
+			
+				}
+			break;
+			case(10):
+				stage=1;
+				for(var i=0; i<width;i++){
+					for(var j=0; j<3; j++){
+					var chain =makeNewChain(i,-size+1,1)
+					chain.t.set(j,randomTile);
+					//chain.t.set(1,6);
+					}
+			
+				}
+			break;
+			case(11):
+				pullNew=true;
+			break;
+			default:
+			break;
+			}
+	
+		}
+	
+	
+	}
+	
+	function randomTile(){
+		if (stage==1)
+		return rand(4)+2
+		if (stage==2)
+		return [2,4,5,6][rand(4)];
+		if (stage==3)
+		return [2,4,4,4,4,5,6,6,6,6,6,6][rand(12)];
+		if (stage==4)
+		return [2,4,4,4,4,4,6,6,6,6,6,6][rand(12)];
+		if (stage==5)
+		return [2,2,2,4,5,4,3,5,6,4,6,6][rand(12)];
+		if (stage==6)
+		return [2,3,4,5,6][rand(5)];
+		if (stage==7)
+		return [2,3,4,5,6][rand(5)];
 	}
 	
 	function chainify(){
@@ -87,6 +192,34 @@ console.log(grid);
 	
 	}
 	
+	function fill(){
+	
+		grid.forEach(function(v,x,y){
+			
+			if(v==0){
+				modifiedColumns.set(x,modifiedColumns.get(x)+1);
+			}
+		
+		});
+		
+		chains.forEach(function(a,i){
+			a.forEach(function(c){
+			
+				modifiedColumns.set(i,Math.max(0,(modifiedColumns.get(i)-c.h)));
+			
+			});
+		
+		
+		})
+		
+		chainify();
+	
+	}
+	
+	setInterval(function(){if(pullNew){
+		fill();
+	}},1000);
+	
 	
 	//var
 	
@@ -101,7 +234,7 @@ console.log(grid);
 	}*/
 	
 	game.grid.forEachSet(function(){
-		return Math.floor(Math.random()*4+2)
+		return randomTile();
 	})
 
 
@@ -138,7 +271,9 @@ console.log(grid);
 		})
 		
 		
-		chains.forEach(function(c){
+		chains.forEach(function(cA){
+		
+			cA.forEach(function(c){
 		
 			c.t.forEach(function(v,i){
 				
@@ -147,6 +282,8 @@ console.log(grid);
 				}
 			
 			})
+			
+			});
 		
 		});
 		ctx.save();
@@ -162,9 +299,10 @@ console.log(grid);
 	
 	game.update=function(delta){
 	
-		for(var i=0; i<chains.length;i++)
+		chains.forEach(function(chainArray,j){
+		for(var i=0; i<chainArray.length;i++)
 		{
-		var v=chains[i];
+		var v=chainArray[i];
 		
 			v.v=Math.min(size*0.5,v.v+size*0.03125*delta);
 			v.y+=Math.min(v.v*delta*0.03125,size*0.5);
@@ -180,13 +318,14 @@ console.log(grid);
 				})
 				
 				recycleChain(v);
-				chains.splice(i, 1);
+				chainArray.splice(i, 1);
 				i--;
 				
 				
 			}
 		
 		}
+		});
 	
 	}
 	
@@ -223,11 +362,8 @@ console.log(grid);
 			}
 		}
 		
-		if (cellsBroken>100){
-		
-			pullNew=false;
-		
-		}
+		onBurstedCells();
+
 	}
 	
 	

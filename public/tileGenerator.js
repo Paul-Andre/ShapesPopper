@@ -1,8 +1,8 @@
 function createTiles(size){
 
 
-	var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","#3f5ed5","#ffb500"];
-	//var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","red","green","blue","orange"];	
+	var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","#3f5ed5","#ffb500","#aaeeff"];
+	//var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","red","green","blue","orange","white"];	
 	
 	var tiles=[];
 	
@@ -105,6 +105,41 @@ ctx.lineTo(15,75);
 ctx.closePath();
 ctx.fill();
 
+		break;
+		case(6):
+		
+
+
+ctx.lineCap = 'butt';
+ctx.lineJoin = 'miter';
+ctx.miterLimit = 4;
+
+
+ctx.save();
+ctx.strokeStyle = "#ffffff";
+ctx.lineWidth = 8;
+ctx.lineCap = "round";
+ctx.lineJoin = "miter";
+ctx.miterLimit = 4;
+ctx.translate(50,50);
+for(var j=0;j<3;j++){
+for(var i=0;i<2;i++)
+{
+ctx.beginPath();
+ctx.moveTo(8,30);
+ctx.lineTo(0,20);
+ctx.lineTo(0,-20);
+ctx.lineTo(-8,-30);
+ctx.stroke();
+ctx.scale(1,-1);
+}
+ctx.rotate(Math.PI*2/3);
+}
+ctx.restore();
+
+
+
+		
 		break;
 		default:
 		break;

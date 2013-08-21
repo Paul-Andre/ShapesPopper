@@ -63,3 +63,11 @@ function cancelEvent(e)
   e.returnValue = false;
   return false;
 }
+
+
+
+function rand(n){
+
+return Math.floor(Math.random()*n);
+
+}
