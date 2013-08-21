@@ -26,14 +26,14 @@ console.log(grid);
 	l[2]=l[1]+Math.floor(width*height*0.4);
 	l[3]=l[2]+Math.floor(width*height*0.4)+width;
 	l[4]=l[3]+Math.floor(width*height*0.2);
-	l[5]=l[4]+Math.floor(width*height*2);
-	l[6]=l[5]+Math.floor(width*height*2);
-	l[7]=l[6]+Math.floor(width*height*2);
-	l[8]=l[7]+Math.floor(width*height*0.9);
-	l[9]=l[8]+Math.floor(width*height*0.5);
-	l[10]=l[9]+width;
+	l[5]=l[4]+200
+	l[6]=l[5]+200
+	l[7]=l[6]+150
+	l[8]=l[7]+100
+	l[9]=l[8]+Math.floor(width*height*0.4);
+	l[10]=l[9]+Math.floor(width*height*0.4);
 	l[11]=l[10]+width*4;
-	l[12]=l[11]+Math.floor(width*height*1);
+	l[12]=l[11]+300;
 		
 	var pullNew=true;;
 	
@@ -65,9 +65,9 @@ console.log(grid);
 	
 	function onBurstedCells(){
 	
-		if((cellsBroken>l[level+1])&&level<l.length-1){
-			//alert(cellsBroken);
-		while(cellsBroken>l[level+1]&&level<l.length-1){level++};
+
+		while(cellsBroken>l[level+1]&&level<l.length-1){
+		level++;
 			//alert(level);
 			switch(level){
 			case(1):
@@ -77,7 +77,7 @@ console.log(grid);
 			case(2):
 				for(var i=0; i<width;i++){
 			
-					var chain =makeNewChain(i,-size+1,1)
+					var chain =makeNewChain(i,-size,1)
 					chain.t.set(0,6);
 					//chain.t.set(1,6);
 			
@@ -104,10 +104,11 @@ console.log(grid);
 				pullNew=false;
 			break;
 			case(9):
+			//alert("hello");
 				for(var i=0; i<width;i++){
 			
-					var chain =makeNewChain(i,-size+1,1)
-					chain.t.set(0,randomTile);
+					var chain =makeNewChain(i,-size,1)
+					chain.t.set(0,randomTile());
 					//chain.t.set(1,6);
 			
 				}
@@ -115,9 +116,9 @@ console.log(grid);
 			case(10):
 				stage=1;
 				for(var i=0; i<width;i++){
+					var chain =makeNewChain(i,-size,1)
 					for(var j=0; j<3; j++){
-					var chain =makeNewChain(i,-size+1,1)
-					chain.t.set(j,randomTile);
+					chain.t.set(j,randomTile());
 					//chain.t.set(1,6);
 					}
 			
@@ -125,6 +126,9 @@ console.log(grid);
 			break;
 			case(11):
 				pullNew=true;
+			break;
+			case(12):
+				alert("you have won the game at it's current state!");
 			break;
 			default:
 			break;
