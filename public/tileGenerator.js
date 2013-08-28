@@ -1,3 +1,4 @@
+var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","#3f5ed5","#ffb500","#aaeeff"];
 function createTiles(size){
 
 

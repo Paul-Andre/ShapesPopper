@@ -6,6 +6,7 @@ function makeNewPopperGame(w,h,size){
 
 	};
 	
+	var particleSystem=createParticleSystem();
 	var grid=game.grid;
 	var width=w;
 	var height=h;
@@ -81,6 +82,14 @@ console.log(grid);
 					chain.t.set(0,6);
 					//chain.t.set(1,6);
 			
+				}
+				for(var i=0;i<20*width;i++){
+					
+					var x=Math.random()*width*size;
+				
+					particleSystem.makeParticle(x,0,Math.random()*100+10,Math.random()*100+10,Math.random()*1000+1000,50,"white",5);
+				
+				
 				}
 			break;
 			case(3):
@@ -290,6 +299,13 @@ console.log(grid);
 			});
 		
 		});
+		
+		ctx.save();
+		ctx.scale(ratio,ratio);
+		
+		particleSystem.draw(ctx);
+		
+		ctx.restore();
 		/*ctx.save();
 		ctx.scale(ratio,ratio);
 		ctx.fillStyle="#FFFFFF";
@@ -303,6 +319,7 @@ console.log(grid);
 	
 	game.update=function(delta){
 	
+		
 		chains.forEach(function(chainArray,j){
 		for(var i=0; i<chainArray.length;i++)
 		{
@@ -330,6 +347,8 @@ console.log(grid);
 		
 		}
 		});
+		
+		particleSystem.update(delta);
 	
 	}
 	
@@ -354,11 +373,15 @@ console.log(grid);
 					grid.set(x,y,0);
 					modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
 					cellsBroken++;
+					//particleSystem.burst(x2*size+size*0.25,y2*size+size*0.25,10,size*0.5,1000,tileColors[color]);
+					particleSystem.burst(x*size,y*size,40,size,250,tileColors[color]);
 				}
 				if (number>=2){
 					grid.set(x2,y2,0);
 					modifiedColumns.set(x2,modifiedColumns.get(x2)+1);
 					cellsBroken++;		
+					//particleSystem.burst(x2*size+size*0.25,y2*size+size*0.25,10,size*0.5,1000,tileColors[color]);
+					particleSystem.burst(x2*size,y2*size,40,size,250,tileColors[color]);
 				}
 			},reuseGrid)
 		
