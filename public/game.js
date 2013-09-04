@@ -87,7 +87,7 @@ console.log(grid);
 					
 					var x=Math.random()*width*size;
 				
-					particleSystem.makeParticle(x,0,Math.random()*100+10,Math.random()*100+10,Math.random()*1000+1000,50,"white",5);
+					particleSystem.makeParticle(x,0,Math.random()*100+10,Math.random()*100+10,Math.random()*1000+1000,50,"white",5,0);
 				
 				
 				}
@@ -369,19 +369,21 @@ console.log(grid);
 			},
 			function callback(x2,y2){
 				number++;
-				if(number==2){
+				
+				function burst(x,y){
 					grid.set(x,y,0);
 					modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
 					cellsBroken++;
 					//particleSystem.burst(x2*size+size*0.25,y2*size+size*0.25,10,size*0.5,1000,tileColors[color]);
-					particleSystem.burst(x*size,y*size,40,size,250,tileColors[color]);
+					particleSystem.burst(x*size,y*size,40,size,2000,tileColors[color]);
+				}
+				
+				
+				if(number==2){
+					burst(x,y);
 				}
 				if (number>=2){
-					grid.set(x2,y2,0);
-					modifiedColumns.set(x2,modifiedColumns.get(x2)+1);
-					cellsBroken++;		
-					//particleSystem.burst(x2*size+size*0.25,y2*size+size*0.25,10,size*0.5,1000,tileColors[color]);
-					particleSystem.burst(x2*size,y2*size,40,size,250,tileColors[color]);
+					burst(x2,y2);
 				}
 			},reuseGrid)
 		

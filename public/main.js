@@ -77,7 +77,7 @@ function makeMenu(){
 
 	var menu={};
 	
-	var backDrop=makeNewPopperGame(Math.floor(window.innerWidth/size),Math.floor(window.innerHeight/size),size);
+	//var backDrop=makeNewPopperGame(Math.floor(window.innerWidth/size),Math.floor(window.innerHeight/size),size);
 	
 	var swing=0;
 	
@@ -87,7 +87,7 @@ function makeMenu(){
 		
 		var scale=1+Math.sin(swing/1000*Math.PI)*0.025;
 		ctx.globalAlpha=0.5;
-		backDrop.draw();
+		//backDrop.draw();
 		ctx.globalAlpha=1;
 		ctx.save();
 		ctx.scale(ratio,ratio);

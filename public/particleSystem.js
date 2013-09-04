@@ -3,7 +3,7 @@ function createParticleSystem(){
 var particles=[];
 var usedParticles=[];
 
-function makeParticle(x,y,vx,vy,life,gravity,color,size){
+function makeParticle(x,y,vx,vy,life,gravity,color,size,sizeDim){
 	var p;
 	if (usedParticles.length){
 		p=usedParticles.pop();
@@ -15,8 +15,9 @@ function makeParticle(x,y,vx,vy,life,gravity,color,size){
 		p.life=life;
 		p.size=size;
 		p.gravity=gravity;
+		p.sizeDim=sizeDim;
 	}else{
-	p= new Particle(x,y,vx,vy,life,gravity,color,size);
+	p= new Particle(x,y,vx,vy,life,gravity,color,size,sizeDim);
 	}
 	
 	particles.push(p);
@@ -30,7 +31,7 @@ function recycleParticle(p){
 }
 
 
-function Particle(x,y,vx,vy,life,gravity,color,size){
+function Particle(x,y,vx,vy,life,gravity,color,size,sizeDim){
 	this.x=x;
 	this.y=y;
 	this.vx=vx;
@@ -39,6 +40,7 @@ function Particle(x,y,vx,vy,life,gravity,color,size){
 	this.color=color;
 	this.life=life;
 	this.gravity=gravity;
+	this.sizeDim=sizeDim;
 	
 
 }
@@ -54,8 +56,9 @@ Particle.prototype.update=function(delta){
 	this.vy+=this.gravity*delta/100;
 	this.x+=this.vx*delta/100;
 	this.y+=this.vy*delta/100;
+	this.size-=this.sizeDim*delta/100;
 	this.life-=delta;
-	if (this.life<=0) return true;
+	if (this.life<=0||this.size<=0) return true;
 	else return false;
 	
 }
@@ -84,11 +87,11 @@ function drawParticles(ctx){
 
 function burst(x,y,force,spread,life,color){
 
-	for (var i=0; i<30;i++){
+	for (var i=0; i<20;i++){
 		
 		var angle=Math.random()*Math.PI*2;
 		//particles[i].draw(ctx);
-		makeParticle(x+spread*Math.random(),y+spread*Math.random(),Math.cos(angle)*force,Math.sin(angle)*force,life*0.5+life*0.5*Math.random(),50,color,4)
+		makeParticle(x+spread*Math.random(),y+spread*Math.random(),Math.cos(angle)*force,Math.sin(angle)*force,life*0.5+life*0.5*Math.random(),50,color,5*Math.random()*1.5,0.9+Math.random()*0.5)
 	}
 
 

@@ -1,5 +1,32 @@
 var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","#3f5ed5","#ffb500","#aaeeff"];
+var baseIndex=2;
+var powerIndex=16;
+
 function createTiles(size){
+
+
+
+	
+	function premiumFormat(ctx,i,size){
+		ctx.save();
+		//ctx.scale(size/100,size/100);
+		ctx.translate(50,50);
+
+		ctx.fillStyle = "#efffdf";
+		
+		
+		for(var i=0;i<4;i++,ctx.rotate(Math.PI*i/2)){
+		ctx.beginPath();
+		ctx.moveTo(50,50);
+		ctx.lineTo(25,50);
+		ctx.lineTo(50,25);
+		ctx.closePath();
+		ctx.fill();
+		}
+
+		ctx.restore();
+	
+	}
 
 
 	var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","#3f5ed5","#ffb500","#aaeeff"];
@@ -20,7 +47,7 @@ function createTiles(size){
 		
 		draw(ctx,i,size);
 	
-		tiles.push(tile);
+		tiles[i]=tile;
 	}
 	
 	
@@ -28,14 +55,21 @@ function createTiles(size){
 	
 		
 		ctx.scale(size/100,size/100);
+		
 		switch(i){
 		case(2):
+		//premiumFormat(ctx,i);
+		
 		ctx.fillStyle="#FF3333";
+		ctx.beginPath();
 		ctx.arc(50, 50, 30, 0, Math.PI*2, true); 
 		//ctx.fillRect(25,25,50,50);
 		ctx.fill();
+		
 		break;
 		case(3):
+
+//premiumFormat(ctx,i);
 
 
 ctx.translate(0,-952.36218);
@@ -58,6 +92,8 @@ ctx.bezierCurveTo(31.140962,1022.1486,41.949106,1020.5724,51.115549,1011.5009);
 ctx.bezierCurveTo(59.295679,1003.4055,72.986276,1005.4634,78.576639,1016.3514);
 
 ctx.stroke();
+
+
 
 break;
 case(4):
