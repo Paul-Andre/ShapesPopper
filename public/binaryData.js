@@ -279,6 +279,7 @@ var binaryData=function(){
 		
 		
 		this.get=function(x,y){
+			if(x>=0&&x<this.width)
 			return view[y*this.width+x]
 		}
 		
@@ -286,6 +287,7 @@ var binaryData=function(){
 		
 		
 		this.set=function(x,y,v){
+			if(x>=0&&x<this.width)
 			return view[y*this.width+x]=v
 		}
 		

@@ -1,5 +1,7 @@
+var particleColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#DD3339","#00bb33","#3f5ee5","#ffdd00","#aaeeff"];
 var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","#3f5ed5","#ffb500","#aaeeff"];
 var baseIndex=2;
+var baseNumber=5;
 var powerIndex=16;
 
 function createTiles(size){
@@ -29,7 +31,6 @@ function createTiles(size){
 	}
 
 
-	var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","#3f5ed5","#ffb500","#aaeeff"];
 	//var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","red","green","blue","orange","white"];	
 	
 	var tiles=[];

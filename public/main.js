@@ -2,7 +2,7 @@ var canvas=document.getElementById("gameCanvas");
 var ctx=canvas.getContext("2d");
 var ratio=1;
 var tiles;
-var size=32;
+var size=16;
 var alignImage=false;
 var gameOn=false;
 

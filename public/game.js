@@ -2,7 +2,10 @@ function makeNewPopperGame(w,h,size){
 
 	var game={
 		grid:new binaryData.Grid(w,h,8,false),
-		size:size
+		size:size,
+		width:w,
+		height:h,
+		chains:[]
 
 	};
 	
@@ -11,7 +14,7 @@ function makeNewPopperGame(w,h,size){
 	var width=w;
 	var height=h;
 console.log(grid);
-	var chains=[];
+	var chains=game.chains;
 	for (var i=0;i<width;i++){
 		
 		chains.push([]);
@@ -44,6 +47,7 @@ console.log(grid);
 	game.chains=chains;
 	var reuseGrid=new binaryData.Grid(w,h,8,false);
 	var modifiedColumns=new binaryData.Array(w,16,false);
+	game.modifiedClumns=modifiedColumns;
 	
 	function makeNewChain(x,y,h){
 		var chain;
@@ -56,6 +60,7 @@ console.log(grid);
 		}else{
 			chain={x:x,y:y,t:new binaryData.Array(height,8,false),h:h,v:0}
 		}
+		if(h>height){console.log(chain);alert(h)}
 		chains[x].push(chain);
 		return chain;
 	}
@@ -206,6 +211,8 @@ console.log(grid);
 	}
 	
 	function fill(){
+	
+		modifiedColumns.setAll(0);
 	
 		grid.forEach(function(v,x,y){
 			
@@ -358,7 +365,7 @@ console.log(grid);
 		y=Math.floor(y/size);
 		
 		if(x<width&&y<height){
-			modifiedColumns.setAll(0);
+			//modifiedColumns.setAll(0);
 			var color=grid.get(x,y);
 			var number=0;
 			reuseGrid.setAll(0);
@@ -372,10 +379,10 @@ console.log(grid);
 				
 				function burst(x,y){
 					grid.set(x,y,0);
-					modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
+					//modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
 					cellsBroken++;
 					//particleSystem.burst(x2*size+size*0.25,y2*size+size*0.25,10,size*0.5,1000,tileColors[color]);
-					particleSystem.burst(x*size,y*size,40,size,2000,tileColors[color]);
+					particleSystem.burst(x*size,y*size,40,size,2000,particleColors[color]);
 				}
 				
 				
@@ -387,7 +394,7 @@ console.log(grid);
 				}
 			},reuseGrid)
 		
-			chainify();
+			fill();
 			}
 		}
 		
