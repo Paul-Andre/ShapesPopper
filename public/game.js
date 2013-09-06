@@ -10,6 +10,7 @@ function makeNewPopperGame(w,h,size){
 	};
 	
 	var particleSystem=createParticleSystem();
+	game.pS=particleSystem;
 	var grid=game.grid;
 	var width=w;
 	var height=h;
@@ -39,7 +40,7 @@ console.log(grid);
 	l[11]=l[10]+width*3;
 	l[12]=l[11]+300;
 		
-	var pullNew=true;;
+	var pullNew=true;
 	
 	
 	var cellsBroken=0;
@@ -235,6 +236,8 @@ console.log(grid);
 		chainify();
 	
 	}
+	
+	game.fill=fill;
 	
 	setInterval(function(){if(pullNew){
 		fill();

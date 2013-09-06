@@ -316,7 +316,7 @@ var binaryData=function(){
 				for(var endX = (typeof w!="number")?this.width:Math.min(Math.ceil(w+tx),this.width),i=x;i<endX;i++)
 					for (var endY = (typeof h!="number")?this.height:Math.min(Math.ceil(h+ty),this.height),j=y;j<endY;j++)
 					{	
-						func.call(this,view[j*this.width+i],i,j);
+						func(view[j*this.width+i],i,j,this);
 				}
 
 		}
