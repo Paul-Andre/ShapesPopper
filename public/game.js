@@ -260,7 +260,7 @@ console.log(grid);
 	game.grid.forEachSet(function(){
 		return randomTile();
 	})
-
+	game.grid.set(5,5,16);
 
 
 	
@@ -373,7 +373,19 @@ console.log(grid);
 	
 	}
 	
+	function tileCompat(a,b){
+	
+	if (a>=powerIndex) a=a-powerIndex+baseIndex;
+	if (b>=powerIndex) b=b-powerIndex+baseIndex;
+	
+	return a==b;
+	
+	
+	}
+	
 	game.click=function(x,y){
+	
+		var specialQueue=[];
 		
 		x=Math.floor(x/size);
 		y=Math.floor(y/size);
@@ -384,14 +396,19 @@ console.log(grid);
 			var number=0;
 			reuseGrid.setAll(0);
 		
-			if(color>1){
+			if(color>=baseIndex){
 			propagate(grid,x,y,function check(v){
-				return v==color;
+				return tileCompat(v,color);
 			},
 			function callback(x2,y2){
 				number++;
 				
 				function burst(x,y){
+					if (grid.get(x,y)>=powerIndex){
+					
+						specialQueue.push({x:x,y:y,f:grid.get(x,y)-powerIndex});
+					
+					}
 					grid.set(x,y,0);
 					//modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
 					cellsBroken++;
@@ -408,6 +425,9 @@ console.log(grid);
 				}
 			},reuseGrid)
 		
+		
+			specialQueue.forEach(function(v){specials[v.f](game,v.x,v.y);})
+			
 			fill();
 			}
 		}

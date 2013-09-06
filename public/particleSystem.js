@@ -97,11 +97,24 @@ function burst(x,y,force,spread,life,color){
 
 }
 
+function explode(x,y,force,spread,life,color){
+
+	for (var i=0; i<100;i++){
+		
+		var angle=Math.random()*Math.PI*2;
+		//particles[i].draw(ctx);
+		makeParticle(x+spread*Math.random(),y+spread*Math.random(),Math.cos(angle)*force,Math.sin(angle)*force*Math.random(),life*0.5+life*0.5*Math.random(),10,color(Math.random()),5*Math.random()*5,1.9+Math.random()*0.5)
+	}
+
+
+}
+
 	return{
 		makeParticle:makeParticle,
 		update:updateParticles,
 		draw:drawParticles,
-		burst:burst
+		burst:burst,
+		explode:explode
 	
 	}
 }
