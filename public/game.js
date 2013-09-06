@@ -5,7 +5,8 @@ function makeNewPopperGame(w,h,size){
 		size:size,
 		width:w,
 		height:h,
-		chains:[]
+		chains:[],
+		overlays:[]
 
 	};
 	
@@ -313,6 +314,8 @@ console.log(grid);
 		ctx.save();
 		ctx.scale(ratio,ratio);
 		
+		this.overlays.forEach(function(v){v.draw(ctx)});
+		
 		particleSystem.draw(ctx);
 		
 		ctx.restore();
@@ -357,6 +360,14 @@ console.log(grid);
 		
 		}
 		});
+		
+		for(var i=0;i<this.overlays.length;i++){
+		
+			if(this.overlays[i].update(delta)){
+				this.overlays.splice(i,1);i--;
+			}
+		
+		}
 		
 		particleSystem.update(delta);
 	

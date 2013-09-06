@@ -1,4 +1,4 @@
-var particleColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#DD3339","#00bb33","#3f5ee5","#ffdd00","#aaeeff"];
+var particleColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#DD3339","#00bb33","#3f5ee5","#ffdd00","#eeeeff"];
 var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","#3f5ed5","#ffb500","#aaeeff"];
 var baseIndex=2;
 var baseNumber=5;
@@ -102,7 +102,7 @@ case(4):
 
 
 ctx.fillStyle = "#7ed3dd";
-ctx.beginPath();
+/*ctx.beginPath();
 ctx.moveTo(33,22.875);
 ctx.bezierCurveTo(25.175642,22.875,18.84375,29.238142,18.84375,37.0625);
 ctx.bezierCurveTo(18.84375,44.886858,25.175642,51.21875,33,51.21875);
@@ -121,6 +121,17 @@ ctx.bezierCurveTo(35.84375,74.511858,42.175642,80.875,50,80.875);
 ctx.bezierCurveTo(57.824358,80.875,64.15625,74.511858,64.15625,66.6875);
 ctx.bezierCurveTo(64.15625,58.863142,57.824358,52.53125,50,52.53125);
 ctx.closePath();
+ctx.fill();*/
+
+ctx.beginPath();
+		ctx.arc(33,37.250, 14.156, 0, Math.PI*2, true); 
+		//ctx.fillRect(25,25,50,50);
+
+		ctx.arc(67,37.250, 14.156, 0, Math.PI*2, true); 
+		//ctx.fillRect(25,25,50,50);
+
+		ctx.arc(50,66.688, 14.156, 0, Math.PI*2, true); 
+		//ctx.fillRect(25,25,50,50);
 ctx.fill();
 
 
