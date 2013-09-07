@@ -123,12 +123,13 @@ ctx.fill();*/
 ctx.beginPath();
 		ctx.arc(33,37.250, 14.156, 0, Math.PI*2, true); 
 		//ctx.fillRect(25,25,50,50);
-
+		ctx.closePath();
 		ctx.arc(67,37.250, 14.156, 0, Math.PI*2, true); 
 		//ctx.fillRect(25,25,50,50);
-
+ctx.closePath();
 		ctx.arc(50,66.688, 14.156, 0, Math.PI*2, true); 
 		//ctx.fillRect(25,25,50,50);
+		ctx.closePath();
 ctx.fill();
 
 
