@@ -155,7 +155,7 @@ return menu;
 setRatio(1);
 var menu=makeMenu();
 
-
+//ctx.scale(0.5,0.5);
 function initNewGame(){
 
 game=makeNewPopperGame(Math.floor(window.innerWidth/size),Math.floor(window.innerHeight/size),size);

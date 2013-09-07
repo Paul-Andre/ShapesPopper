@@ -408,12 +408,14 @@ console.log(grid);
 					
 						specialQueue.push({x:x,y:y,f:grid.get(x,y)-powerIndex});
 					
-					}
+					}else
+					
+					particleSystem.burst(x*size,y*size,40,size,2000,particleColors[color]);
+					
 					grid.set(x,y,0);
 					//modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
 					cellsBroken++;
 					//particleSystem.burst(x2*size+size*0.25,y2*size+size*0.25,10,size*0.5,1000,tileColors[color]);
-					particleSystem.burst(x*size,y*size,40,size,2000,particleColors[color]);
 				}
 				
 				

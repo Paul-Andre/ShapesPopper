@@ -13,15 +13,36 @@ function trans(a, c1,c2){
 function makeInterpolate(r1,g1,b1,r2,g2,b2){
 
 
-	return function(a){
+	function create(a){
 
+		/*var r=Math.floor(trans(a,r1,r2)/17);
+		var g=Math.floor(trans(a,g1,g2)/17);
+		var b=Math.floor(trans(a,b1,b2)/17);
+
+		return("#"+r.toString(16)+g.toString(16)+b.toString(16));
+		*/
+		
 		var r=Math.floor(trans(a,r1,r2));
 		var g=Math.floor(trans(a,g1,g2));
 		var b=Math.floor(trans(a,b1,b2));
-
-		return("rgb("+r+","+g+","+b+")");
+var string="rgb("+r+","+g+","+b+")"
+		return string ;
+	}
+	
+	var div=16;
+	var set=[];
+	for(var i=0;i<=div;i++){
+		set[i]=create(i/div);
 	
 	}
+	
+	return function(a){
+	
+		return set[Math.floor(a*div)];
+	
+	}
+	
+	//return create;
 
 
 }
