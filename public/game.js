@@ -261,7 +261,7 @@ console.log(grid);
 		return randomTile();
 	})
 	game.grid.set(5,5,16);
-
+	game.grid.set(12,10,17);
 
 	
 	

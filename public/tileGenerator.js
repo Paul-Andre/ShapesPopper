@@ -1,8 +1,4 @@
-var particleColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#DD3339","#00bb33","#3f5ee5","#ffdd00","#eeeeff"];
-var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","#3f5ed5","#ffb500","#aaeeff"];
-var baseIndex=2;
-var baseNumber=5;
-var powerIndex=16;
+
 
 function createTiles(size){
 
@@ -43,6 +39,7 @@ function createTiles(size){
 		tile.width=size;
 		tile.height=size;
 		
+		if(i>=powerIndex){ctx.fillStyle=tileColors[i-powerIndex+baseIndex]}
 		ctx.fillStyle=tileColors[i];
 		ctx.fillRect(0,0,size,size);
 		
@@ -186,7 +183,36 @@ ctx.rotate(Math.PI*2/3);
 }
 ctx.restore();
 
+break;
+case(powerIndex):
 
+
+		for(var i=1;i>=0;i-=0.25){
+		ctx.fillStyle=redInterpolate(1-i);
+		ctx.beginPath();
+		ctx.arc(50, 50, 30*i, 0, Math.PI*2, true); 
+		//ctx.fillRect(25,25,50,50);
+		ctx.fill();
+		}
+		
+		ctx.fillStyle="#efffdf";
+		ctx.beginPath();
+		//ctx.arc(50, 50, 2, 0, Math.PI*2, true); 
+		//ctx.fillRect(25,25,50,50);
+		ctx.fill();
+		ctx.lineWidth = 3;
+ctx.lineCap = "round";
+ctx.lineJoin = "miter";
+ctx.miterLimit = 4;
+		ctx.translate(50,50);
+		for(var i=0;i<10;i++){
+		ctx.strokeStyle="#efffdf";
+		ctx.beginPath();
+		ctx.arc(0, 0, 35, 0, Math.PI/10, false); 
+		//ctx.fillRect(25,25,50,50);
+		ctx.stroke();
+		ctx.rotate(Math.PI*2/10);
+		}
 
 		
 		break;
