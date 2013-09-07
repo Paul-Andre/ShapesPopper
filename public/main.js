@@ -152,7 +152,7 @@ ctx.restore();
 return menu;
 
 }
-setRatio(1);
+setRatio(0.5);
 var menu=makeMenu();
 
 //ctx.scale(0.5,0.5);

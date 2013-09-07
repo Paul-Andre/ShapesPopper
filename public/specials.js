@@ -40,7 +40,7 @@ function(game,x,y){
 		ctx.fill();
 		}*/
 		
-		ctx.drawImage(explosionFrames[Math.floor(this.time/20)],(x-Math.ceil(radius))*size,(y-Math.ceil(radius))*size);
+		ctx.drawImage(explosionFrames[Math.floor(this.time/20)],(x-Math.ceil(radius))*size,(y-Math.ceil(radius))*size,(Math.ceil(radius)*2+1)*game.size,(Math.ceil(radius)*2+1)*game.size);
 		
 		},
 		update:function(delta){
@@ -94,17 +94,24 @@ function(game,x,y){
 		time:0,
 		draw:function(ctx){
 	
+		/*
 		for(var i=shapeNum;i>0;i--){
 		ctx.beginPath();
 		ctx.fillStyle=greenInterpolate(Math.sin(this.time/60*Math.PI+i)*.5+.5);
 		var w=size*Math.abs(Math.sin(this.time/400*Math.PI+i/10))*(i+7)/12
 		ctx.fillRect(0, (y+.5)*game.size-w*.5,game.width*game.size, w);
 		//ctx.fill();
+		}*/
+		for(var ii=0;ii<game.width;ii++){
+		ctx.drawImage(beamFrames[Math.floor(this.time/25)],ii*game.size,y*game.size,game.size,game.size)
+		
 		}
 		
-		var xO=-((this.time)%100);
+	
+	
+	/*	var xO=-((this.time)%100);
 		var yO=0;
-		var h=game.size/2*(Math.sin(this.time/400*Math.PI+i/10));
+		var h=game.size/2*(Math.sin(this.time/400*Math.PI));
 		var step=h*2; 
 
 		ctx.beginPath();
@@ -118,12 +125,12 @@ function(game,x,y){
 		}
 		ctx.strokeStyle=greenDarkInterpolate((Math.sin(this.time)*.5+.5));
 		ctx.lineWidth=4;
-		ctx.stroke();
+		ctx.stroke();*/
 		
 		},
 		update:function(delta){
 		this.time+=delta;
-		if (this.time>300)
+		if (this.time>12*25)
 		return true;
 		else return false;
 		}
