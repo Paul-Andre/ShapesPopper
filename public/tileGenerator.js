@@ -70,24 +70,24 @@ function createTiles(size){
 //premiumFormat(ctx,i);
 
 
-ctx.translate(0,-952.36218);
+//ctx.translate(0,0);
 
 ctx.strokeStyle = "#88FF88";
-ctx.lineWidth = 8;
+ctx.lineWidth = 9;
 ctx.lineCap = "round";
 ctx.lineJoin = "miter";
 ctx.miterLimit = 4;
 
 ctx.beginPath();
-ctx.moveTo(23.829093,984.91159);
-ctx.bezierCurveTo(30.808991,998.54696,41.617135,996.97076,50.783578,987.89926);
-ctx.bezierCurveTo(58.963708,979.80385,72.654305,981.86177,78.244668,992.74971);
+ctx.moveTo(23.829093,32.54941);
+ctx.bezierCurveTo(30.808991,46.18478,41.617135,44.60858,50.783578,35.53708);
+ctx.bezierCurveTo(58.963708,27.44167,72.654305,29.49959,78.244668,40.38753);
 ctx.stroke();
 
 ctx.beginPath();
-ctx.moveTo(24.161064,1008.5132);
-ctx.bezierCurveTo(31.140962,1022.1486,41.949106,1020.5724,51.115549,1011.5009);
-ctx.bezierCurveTo(59.295679,1003.4055,72.986276,1005.4634,78.576639,1016.3514);
+ctx.moveTo(24.161064,56.15102);
+ctx.bezierCurveTo(31.140962,69.78642,41.949106,68.21022,51.115549,59.13872);
+ctx.bezierCurveTo(59.295679,51.04332,72.986276,53.10122,78.576639,63.98922);
 
 ctx.stroke();
 
@@ -123,13 +123,15 @@ ctx.fill();*/
 ctx.beginPath();
 		ctx.arc(33,37.250, 14.156, 0, Math.PI*2, true); 
 		//ctx.fillRect(25,25,50,50);
-		ctx.closePath();
+		
+ctx.fill();
+ctx.beginPath();
 		ctx.arc(67,37.250, 14.156, 0, Math.PI*2, true); 
 		//ctx.fillRect(25,25,50,50);
-ctx.closePath();
+		ctx.fill();
+ctx.beginPath();
 		ctx.arc(50,66.688, 14.156, 0, Math.PI*2, true); 
 		//ctx.fillRect(25,25,50,50);
-		ctx.closePath();
 ctx.fill();
 
 
@@ -190,6 +192,40 @@ case(powerIndex):
 
 		for(var i=1;i>=0;i-=0.25){
 		ctx.fillStyle=redInterpolate(1-i);
+		ctx.beginPath();
+		ctx.arc(50, 50, 30*i, 0, Math.PI*2, true); 
+		//ctx.fillRect(25,25,50,50);
+		ctx.fill();
+		}
+		
+		ctx.fillStyle="#efffdf";
+		ctx.beginPath();
+		//ctx.arc(50, 50, 2, 0, Math.PI*2, true); 
+		//ctx.fillRect(25,25,50,50);
+		ctx.fill();
+		ctx.lineWidth = 3;
+ctx.lineCap = "round";
+ctx.lineJoin = "miter";
+ctx.miterLimit = 4;
+		ctx.translate(50,50);
+		for(var i=0;i<10;i++){
+		ctx.strokeStyle="#efffdf";
+		ctx.beginPath();
+		ctx.arc(0, 0, 35, 0, Math.PI/10, false); 
+		//ctx.fillRect(25,25,50,50);
+		ctx.stroke();
+		ctx.rotate(Math.PI*2/10);
+		}
+
+		
+		break;
+		
+		
+		case(powerIndex+1):
+
+
+		for(var i=1;i>=0;i-=0.25){
+		ctx.fillStyle=greenInterpolate(1-i);
 		ctx.beginPath();
 		ctx.arc(50, 50, 30*i, 0, Math.PI*2, true); 
 		//ctx.fillRect(25,25,50,50);

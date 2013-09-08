@@ -12,7 +12,7 @@ var size=32;
 var size=64;
 }
 
-
+//alert("shoutout");
 //ctx.fillText("Loading...",50,50);
 
 
@@ -152,7 +152,7 @@ ctx.restore();
 return menu;
 
 }
-setRatio(0.5);
+setRatio(1);
 var menu=makeMenu();
 
 //ctx.scale(0.5,0.5);

@@ -156,6 +156,7 @@ console.log(grid);
 	}
 	
 	function randomTile(){
+	function m(){
 		if (stage==1)
 		return rand(4)+2
 		if (stage==2)
@@ -170,6 +171,10 @@ console.log(grid);
 		return [2,3,4,5,6][rand(5)];
 		if (stage==7)
 		return [2,3,4,5,6][rand(5)];
+	}
+	
+	var a=m();
+	return (Math.random()<0.95)?a:(a==2)?16:(a==3)?17:a;
 	}
 	
 	function chainify(){
@@ -383,9 +388,30 @@ console.log(grid);
 	
 	}
 	
+	game.specialQueue=[];
+	
+	
+	game.burst=function burst(x,y,particle){
+					var v=grid.get(x,y)
+					if (v>=powerIndex){
+					
+						this.specialQueue.push({x:x,y:y,f:v-powerIndex});
+					
+					}else
+					
+					if(particle&&v>1)game.pS.burst(x*size,y*size,40,size,2000,particleColors[v]);
+					
+					if(v>1)cellsBroken++;
+					
+					grid.set(x,y,0);
+					//modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
+					//particleSystem.burst(x2*size+size*0.25,y2*size+size*0.25,10,size*0.5,1000,tileColors[color]);
+				}
+				
+				
+		
 	game.click=function(x,y){
 	
-		var specialQueue=[];
 		
 		x=Math.floor(x/size);
 		y=Math.floor(y/size);
@@ -403,32 +429,22 @@ console.log(grid);
 			function callback(x2,y2){
 				number++;
 				
-				function burst(x,y){
-					if (grid.get(x,y)>=powerIndex){
-					
-						specialQueue.push({x:x,y:y,f:grid.get(x,y)-powerIndex});
-					
-					}else
-					
-					particleSystem.burst(x*size,y*size,40,size,2000,particleColors[color]);
-					
-					grid.set(x,y,0);
-					//modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
-					cellsBroken++;
-					//particleSystem.burst(x2*size+size*0.25,y2*size+size*0.25,10,size*0.5,1000,tileColors[color]);
-				}
+				//game.burst();
 				
 				
 				if(number==2){
-					burst(x,y);
+					game.burst(x,y,true);
 				}
 				if (number>=2){
-					burst(x2,y2);
+					game.burst(x2,y2,true);
 				}
 			},reuseGrid)
 		
 		
-			specialQueue.forEach(function(v){specials[v.f](game,v.x,v.y);})
+			while(this.specialQueue.length){
+			v=this.specialQueue.shift();
+			specials[v.f](game,v.x,v.y);
+			}
 			
 			fill();
 			}

@@ -9,7 +9,7 @@ function(game,x,y){
 	game.pS.explode(x*size,y*size,100,size,2000,redInterpolate);
 	game.grid.forEach(function(v,x2,y2,a){
 
-	if(  ((x2-x)*(x2-x)+(y2-y)*(y2-y))<=(radius*radius)  ){a.set(x2,y2,0);
+	if(  ((x2-x)*(x2-x)+(y2-y)*(y2-y))<=(radius*radius)  ){game.burst(x2,y2,false)};
 
 	//game.pS.burst(x2*size,y2*size,40,size,2000,particleColors[v]);
 	if(v>1&&v<particleColors.length){
@@ -21,7 +21,7 @@ function(game,x,y){
 			//particles[i].draw(ctx);
 			game.pS.makeParticle(x2*size+size*Math.random(),y2*size+size*Math.random(),Math.cos(angle)*40,Math.sin(angle)*force,life*0.5+life*0.5*Math.random(),50,particleColors[v],5*Math.random()*1.5,0.9+Math.random()*0.5)
 		}
-	}
+	
 
 	}
 	//alert((x2-x)*(x2-x)+(y2-y)*(y2-y));
@@ -70,7 +70,7 @@ function(game,x,y){
 
 	game.grid.forEach(function(v,x2,y2,a){
 
-	a.set(x2,y2,0);
+	game.burst(x2,y2,false);
 
 	//game.pS.burst(x2*size,y2*size,40,size,2000,particleColors[v]);
 	

@@ -2,8 +2,10 @@ function createParticleSystem(){
 
 var particles=[];
 var usedParticles=[];
+var on=false;
 
 function makeParticle(x,y,vx,vy,life,gravity,color,size,sizeDim){
+if(on){
 	var p;
 	if (usedParticles.length){
 		p=usedParticles.pop();
@@ -23,7 +25,7 @@ function makeParticle(x,y,vx,vy,life,gravity,color,size,sizeDim){
 	particles.push(p);
 	
 	return p;
-
+}
 }
 
 function recycleParticle(p){
