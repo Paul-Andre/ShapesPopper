@@ -71,3 +71,18 @@ function rand(n){
 return Math.floor(Math.random()*n);
 
 }
+
+function doNothing(){}
+
+function  createParticleSystem(){
+
+	return{
+		makeParticle:doNothing,
+		update:doNothing,
+		draw:doNothing,
+		burst:doNothing,
+		explode:doNothing
+	
+	}
+	
+}

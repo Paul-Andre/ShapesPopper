@@ -1,4 +1,4 @@
-function createParticleSystem(){
+/*function createParticleSystem(){
 
 var particles=[];
 var usedParticles=[];
@@ -119,4 +119,4 @@ function explode(x,y,force,spread,life,color){
 		explode:explode
 	
 	}
-}
+}*/

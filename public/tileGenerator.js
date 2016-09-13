@@ -5,7 +5,7 @@ function createTiles(size){
 
 
 	
-	function premiumFormat(ctx,i,size){
+	/*function premiumFormat(ctx,i,size){
 		ctx.save();
 		//ctx.scale(size/100,size/100);
 		ctx.translate(50,50);
@@ -24,7 +24,7 @@ function createTiles(size){
 
 		ctx.restore();
 	
-	}
+	}*/
 
 
 	//var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","red","green","blue","orange","white"];	
@@ -55,6 +55,20 @@ function createTiles(size){
 		ctx.scale(size/100,size/100);
 		
 		switch(i){
+		
+		case(1):
+		
+		ctx.strokeStyle ="#c0c0d0";
+		ctx.lineWidth = 3;
+		for(var i=0; i<10;i++){
+		ctx.beginPath();
+		ctx.moveTo(0,0);
+		ctx.lineTo(100,-100);
+		ctx.stroke();
+		ctx.translate(0,10);
+		
+		}
+		break;
 		case(2):
 		//premiumFormat(ctx,i);
 		

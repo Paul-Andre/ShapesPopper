@@ -1,6 +1,6 @@
 
 var particleColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#DD3339","#00bb33","#3f5ee5","#ffdd00","#eeeeff"];
-var tileColors=["rgba(0,0,0,0)","rgba(0,0,0,0)","#AA3339","#00bb33","#3f5ed5","#ffb500","#aaeeff"];
+var tileColors=["rgba(0,0,0,0)","777788","#AA3339","#00bb33","#3f5ed5","#ffb500","#aaeeff"];
 var baseIndex=2;
 var baseNumber=5;
 var powerIndex=16;

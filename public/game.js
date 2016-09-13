@@ -26,7 +26,7 @@ console.log(grid);
 	var stage=1;
 	var level=0;
 	//var
-	var levels=[];
+	var levels=[];/*
 	var l=levels;
 	l[1]=150;
 	l[2]=l[1]+Math.floor(width*height*0.4);
@@ -39,9 +39,9 @@ console.log(grid);
 	l[9]=l[8]+Math.floor(width*height*0.3);
 	l[10]=l[9]+Math.floor(width*height*0.3);
 	l[11]=l[10]+width*3;
-	l[12]=l[11]+300;
+	l[12]=l[11]+300;*/
 		
-	var pullNew=true;
+	var pullNew=false;
 	
 	
 	var cellsBroken=0;
@@ -74,7 +74,7 @@ console.log(grid);
 	function onBurstedCells(){
 	
 
-		while(cellsBroken>l[level+1]&&level<l.length-1){
+	/*	while(cellsBroken>l[level+1]&&level<l.length-1){
 		level++;
 			//alert(level);
 			switch(level){
@@ -150,10 +150,16 @@ console.log(grid);
 			break;
 			}
 	
+		}*/
+	
+	
+		if (game.combo>=2){
+			game.overlays.push(makeText(game.combo,w*size/2,h*size/2));
 		}
 	
-	
 	}
+	
+	game.powerChance=0;
 	
 	function randomTile(){
 	function m(){
@@ -267,7 +273,7 @@ console.log(grid);
 	})
 	game.grid.set(5,5,16);
 	game.grid.set(12,10,17);
-
+fill();
 	
 	
 	/*function makeRandomChain(){
@@ -294,7 +300,7 @@ console.log(grid);
 		
 		
 		this.grid.forEach(function(v,x,y){
-			if(v>1){
+			if(v){
 			ctx.drawImage(tiles[v],x*size*ratio,y*size*ratio,size*ratio,size*ratio)
 			}
 		})
@@ -306,7 +312,7 @@ console.log(grid);
 		
 			c.t.forEach(function(v,i){
 				
-				if(v>1){
+				if(v){
 				ctx.drawImage(tiles[v],c.x*size*ratio,(i*size+c.y)*ratio);
 				}
 			
@@ -389,7 +395,8 @@ console.log(grid);
 	}
 	
 	game.specialQueue=[];
-	
+	game.combo=0;
+	game.maxCombo=0;
 	
 	game.burst=function burst(x,y,particle){
 					var v=grid.get(x,y)
@@ -398,25 +405,65 @@ console.log(grid);
 						this.specialQueue.push({x:x,y:y,f:v-powerIndex});
 					
 					}else
+
 					
 					if(particle&&v>1)game.pS.burst(x*size,y*size,40,size,2000,particleColors[v]);
 					
-					if(v>1)cellsBroken++;
+					if(v){cellsBroken++;this.combo++; if(this.combo>this.maxCombo)this.maxCombo=this.combo}
 					
 					grid.set(x,y,0);
 					//modifiedColumns.set(x,modifiedColumns.get(x)+1);  //to be sure that there were at least 2 cells.
 					//particleSystem.burst(x2*size+size*0.25,y2*size+size*0.25,10,size*0.5,1000,tileColors[color]);
 				}
 				
-				
-		
-	game.click=function(x,y){
+	function makeText(text,x,y){
 	
+		return{
+			text:text,
+			x:x,
+			y:y,
+			time:0,
+			op:1,
+			draw:function(ctx){
+				ctx.save();
+				ctx.globalAlpha=this.op;
+		ctx.scale(ratio,ratio);
+		ctx.fillStyle="#FFFFFF";
+		ctx.strokeStyle="#223344";
+		ctx.font = "60pt Arial";
+		ctx.lineWidth=4;
+		ctx.strokeText(this.text,this.x,this.y);
+		ctx.fillText(this.text,this.x,this.y);
+		ctx.restore();
+			
+			},
+			update:function(delta){
+				
+				this.time+=delta;
+				this.op-=delta*0.001
+				if(this.time>1000)return true;
+				return false;
+				
+			}
+		}
+	
+	
+	
+	
+	
+	
+	}
 		
-		x=Math.floor(x/size);
-		y=Math.floor(y/size);
+	game.click=function(ox,oy){
+	
+		//this.overlays.push(makeText("click",x,y));
+		var x=Math.floor(ox/size);
+		var y=Math.floor(oy/size);
 		
+		if(!game.over)
 		if(x<width&&y<height){
+		
+			this.combo=0;
 			//modifiedColumns.setAll(0);
 			var color=grid.get(x,y);
 			var number=0;
@@ -439,6 +486,7 @@ console.log(grid);
 					game.burst(x2,y2,true);
 				}
 			},reuseGrid)
+
 		
 		
 			while(this.specialQueue.length){
@@ -448,12 +496,24 @@ console.log(grid);
 			
 			fill();
 			}
+			
+			
+			onBurstedCells();
+			
+		
 		}
 		
-		onBurstedCells();
 
 	}
 	
+	
+	game.over=false;
+	
+	game.end=function(){
+	
+	
+	
+	}
 	
 	game.usedChains=usedChains;
 	game.chains=chains;
