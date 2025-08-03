@@ -4,4 +4,6 @@ Pop pop pop
 
 Made for the js13k2 competition.
 
+Runs super smooth, btw, on all screen sizes, thanks to multiple optimizations I have done.
+
 Play it [here](https://paul-andre.github.io/ShapesPopper/publicMin/)
